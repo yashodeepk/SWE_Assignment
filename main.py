@@ -1,6 +1,19 @@
+from numpy import float64
 from stl import mesh
 from mpl_toolkits import mplot3d
 from matplotlib import pyplot
+
+
+# Input the slicing heights
+z_heights = []
+
+size = int(input('Enter the number of elements: '))
+
+for i in range(size):
+    temp = float64(input())
+    z_heights.append(temp)
+
+print(z_heights)
 
 # Create a new plot
 figure = pyplot.figure()
