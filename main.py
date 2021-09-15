@@ -1,33 +1,18 @@
-from numpy import float64
-from stl import mesh
-from mpl_toolkits import mplot3d
-from matplotlib import pyplot
-
-
+import trimesh
+import numpy as np
+#axis
 # Input the slicing heights
 z_heights = []
 
 size = int(input('Enter the number of elements: '))
 
 for i in range(size):
-    temp = float64(input())
+    temp = np.float64(input())
     z_heights.append(temp)
-
-print(z_heights)
-
-# Create a new plot
-figure = pyplot.figure()
-axes = mplot3d.Axes3D(figure,auto_add_to_figure=False)
-figure.add_axes(axes)
-
-# Load the STL files and add the vectors to the plot
-your_mesh = mesh.Mesh.from_file('assignment.stl')
-print(your_mesh[0])
-axes.add_collection3d(mplot3d.art3d.Poly3DCollection(your_mesh.vectors))
-
-# Auto scale to the mesh size
-scale = your_mesh.points.flatten()
-axes.auto_scale_xyz(scale, scale, scale)
-
-# Show the plot to the screen
-pyplot.show()
+    
+mesh = trimesh.load_mesh("assignment.stl")
+#mesh.visual.face_colors = [100, 100, 100, 255]
+for z in range(size):
+    slice = mesh.section(plane_origin=[0,z_heights[z],0], 
+                        plane_normal=[0,1,0])
+    slice.show()
