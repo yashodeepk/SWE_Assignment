@@ -1,18 +1,20 @@
 import trimesh
-import numpy as np
-#axis
-# Input the slicing heights
-z_heights = []
+from time import sleep
+from savePlot import saveSection
 
-size = int(input('Enter the number of elements: '))
+myMesh = trimesh.load_mesh('assignment.stl')
+height = int(input('please input height - '))
+basePlane = int(input('please input base plane -\n1. front\n2. bottom\n3. left'))
 
-for i in range(size):
-    temp = np.float64(input())
-    z_heights.append(temp)
-    
-mesh = trimesh.load_mesh("assignment.stl")
-#mesh.visual.face_colors = [100, 100, 100, 255]
-for z in range(size):
-    slice = mesh.section(plane_origin=[0,z_heights[z],0], 
-                        plane_normal=[0,1,0])
-    slice.show()
+# hard coded base plane (bottom)
+
+saveSection(basePlane, height, myMesh)
+sleep(1)
+
+print('saving sections with height 10mm, 30mm and 50mm')
+saveSection(1, 10, myMesh)
+sleep(1)
+saveSection(1, 30, myMesh)
+sleep(1)
+saveSection(1, 50, myMesh)
+sleep(1)
